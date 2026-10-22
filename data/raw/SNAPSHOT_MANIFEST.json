@@ -1,0 +1,71 @@
+{
+  "snapshot_date": "2026-10-22",
+  "files": {
+    "curated_list_2026-10-22.json": {
+      "sha256": "f9fd2540a5cbff922167fe240e7da789f3d8b74cce177db5e67be28d0e26894f",
+      "records": 372,
+      "date_collected_min": "2026-10-22",
+      "date_collected_max": "2026-10-22"
+    },
+    "documentation_2026-10-22.json": {
+      "sha256": "609d15cb31fe55b0479945a92490dfa18681d20ecb106d4a10e54e3afefde792",
+      "records": 7,
+      "date_collected_min": "2026-10-22",
+      "date_collected_max": "2026-10-22"
+    },
+    "github_topics_2026-10-22.json": {
+      "sha256": "e9d87a2b7195000a6cb7b93437fa4b34faa09c1f6892f428b11f8cb1310f6d88",
+      "records": 1127,
+      "date_collected_min": "2026-10-22",
+      "date_collected_max": "2026-10-22"
+    },
+    "github_topics_skipped_2026-10-22.json": {
+      "sha256": "3d3e874440ad005a1c172998f03be6ba5108442844cb3a4617919d3a8fd3d74e",
+      "records": 5177,
+      "date_collected_min": "",
+      "date_collected_max": ""
+    },
+    "public_repository_2026-10-22.json": {
+      "sha256": "aff3c8723e115a09d7db7995e0aae4f5c9fe6c260fc1ea5e0616219801c30ec8",
+      "records": 25,
+      "date_collected_min": "2026-10-22",
+      "date_collected_max": "2026-10-22"
+    },
+    "published_list_2026-10-22.json": {
+      "sha256": "0158f1223db5d32a1ab9c7e9f13bc8e3ba8ea524c9ff2c9da2d03c92d9e263e2",
+      "records": 90,
+      "date_collected_min": "2026-10-22",
+      "date_collected_max": "2026-10-22"
+    },
+    "repository_search_2026-10-22.json": {
+      "sha256": "26409da5a5bae242e651095f2f876389c41da1ebc4f1d82940ff5dcba9271ef0",
+      "records": 350,
+      "date_collected_min": "2026-10-22",
+      "date_collected_max": "2026-10-22"
+    },
+    "vendor_origin_2026-10-22.json": {
+      "sha256": "8970682488d872813f508e7cb026cf7258b76c09640d0f905df24838dc203c9d",
+      "records": 75,
+      "date_collected_min": "2026-10-22",
+      "date_collected_max": "2026-10-22"
+    },
+    "vendor_site_2026-10-22.json": {
+      "sha256": "e7ae6a129dee56fbc3144abd9f4f147a515b52caeb485b92dffc3a4e9e7d4982",
+      "records": 35,
+      "date_collected_min": "2026-10-22",
+      "date_collected_max": "2026-10-22"
+    },
+    "wikipedia_article_2026-10-22.json": {
+      "sha256": "e519649ddd95e0b24aebf92aff8564150297b7216006a4740223ee55e7482d75",
+      "records": 91,
+      "date_collected_min": "2026-10-22",
+      "date_collected_max": "2026-10-22"
+    },
+    "wikipedia_article_rejected_2026-10-22.json": {
+      "sha256": "282b100e18fde7cda2cab8c90f86428ca12848b63394d8e8dc4d1fe25ede9b0a",
+      "records": 22,
+      "date_collected_min": "",
+      "date_collected_max": ""
+    }
+  }
+}

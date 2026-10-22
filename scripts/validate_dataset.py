@@ -4,7 +4,8 @@ import csv
 import sys
 from collections import Counter
 
-from common import CATEGORIES, FINAL_FIELDS, PLATFORMS, PROCESSED, region_of, split_multi, valid_url
+from common import (CATEGORIES, FINAL_FIELDS, PCB_NOT_IC_STAGES, PLATFORMS, PROCESSED, region_of, split_multi,
+                    valid_url)
 
 REQUIRED_REGIONS = ("North America", "Europe", "Asia")
 
@@ -42,6 +43,10 @@ def main():
             errors.append(where + ": licence model outside vocabulary")
         if any(p not in PLATFORMS for p in split_multi(r["supported_platforms"])):
             errors.append(where + ": platform outside vocabulary")
+        if bool(r["vendor_maintainer"]) != bool(r["vendor_canonical"]):
+            errors.append(where + ": vendor_canonical must be filled exactly when vendor_maintainer is")
+        if r["category"] == "pcb-design" and PCB_NOT_IC_STAGES & set(split_multi(r["additional_categories"])):
+            errors.append(where + ": PCB tool carries an IC-only secondary category")
         if r["region"] != region_of(r["country_region"]):
             errors.append(where + ": region does not match country")
         if r["first_release_year"] and r["latest_release_year"] and r["first_release_year"] > r["latest_release_year"]:

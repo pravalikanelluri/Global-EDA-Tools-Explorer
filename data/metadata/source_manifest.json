@@ -50,6 +50,15 @@
       "script": "scripts/collect_documentation.py",
       "urls": "official documentation landing pages listed in the seed (docs_url)",
       "fields": ["supported_platforms (installation context only)", "languages_formats (unambiguous names only)"]
+    },
+    {
+      "source_type": "github_topics",
+      "script": "scripts/collect_github_topics.py",
+      "urls": "https://api.github.com/search/repositories over the EDA topics listed in the script; then, for kept repositories and only with GITHUB_TOKEN, /repos/{owner}/{repo}/releases/latest and /users/{owner}",
+      "fields": ["tool_name (repository name)", "vendor_maintainer (owner)", "category (description/topics through the project's keyword rules)",
+                 "license (SPDX)", "license_model", "website_url (homepage)", "repository_url",
+                 "latest_version", "latest_release_date", "country_region (owner's self-reported location, only when it names a country)"],
+      "note": "Discovery source, mostly open-source tools. Filter rules are in the script header; every skipped repository and its reason is written to data/raw/github_topics_skipped_<date>.json."
     }
   ]
 }

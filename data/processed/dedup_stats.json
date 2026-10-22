@@ -1,7 +1,8 @@
 {
-  "source_records": 268,
-  "canonical_tools": 131,
-  "duplicates_merged": 17,
-  "multi_source_tools": 89,
-  "review_items": 1
+  "source_records": 2172,
+  "canonical_tools": 1522,
+  "duplicates_merged": 88,
+  "multi_source_tools": 437,
+  "review_items": 51,
+  "pcb_category_adjustments": 39
 }

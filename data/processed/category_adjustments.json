@@ -1,0 +1,277 @@
+[
+  {
+    "tool": "CADSTAR",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "place-and-route",
+      "timing-signoff"
+    ]
+  },
+  {
+    "tool": "Cadence Allegro X",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "EAGLE",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "KiCad",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "KiCad-Parasitics",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "NI Ultiboard",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "NixiePowerSupply",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "PCB",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "PCB_Elegance",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "ReliabilityCalc",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "SiemensEDA_Python_Interface",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "TopRouter",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "boardview",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "buck-converter-kicad-design",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "cuflow",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "eBoard_Can-Analyzer",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "eBoard_USBtoTTL",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "easyeda-mcp-pro",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "eda-agent",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "place-and-route"
+    ]
+  },
+  {
+    "tool": "edacious",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "fastroute",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "place-and-route"
+    ]
+  },
+  {
+    "tool": "fragua",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "place-and-route"
+    ]
+  },
+  {
+    "tool": "kicad-claude-mcp",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification",
+      "place-and-route"
+    ]
+  },
+  {
+    "tool": "kicad-jlcpcb",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "place-and-route"
+    ]
+  },
+  {
+    "tool": "kicad-mcp-pro",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "kicad-studio-kit",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "kicad-thai",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "kicad_align",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "kosmo-spring-reverb-driver",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "mcp-server-kicad",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "online-gencad-viewer",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "place-and-route"
+    ]
+  },
+  {
+    "tool": "panelize-plugin",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "pcb-rnd",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "pcb2svg",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "pcbflow",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "pcbflow",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "place-and-route"
+    ]
+  },
+  {
+    "tool": "pcbgcode",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "scangenie",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  },
+  {
+    "tool": "stripboard2schematic",
+    "rule": "pcb_primary_drops_ic_stages",
+    "dropped_additional_categories": [
+      "layout-physical-verification"
+    ]
+  }
+]

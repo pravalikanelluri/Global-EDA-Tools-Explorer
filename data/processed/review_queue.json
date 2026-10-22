@@ -1,5 +1,341 @@
 [
   {
+    "type": "same_name_different_vendor",
+    "name": "Ngspice",
+    "vendors": [
+      "Ngspice Contributors Team: Holger Vogt, Giles Atkinson, Brian Taylor, Dietmar Wa",
+      "haxscramper"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "CVC",
+    "vendors": [
+      "Tachyon Design Automation",
+      "d-m-bailey"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "Logisim-evolution",
+    "vendors": [
+      "Multiple universities",
+      "logisim-evolution"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "Logisim-evolution",
+    "vendors": [
+      "Multiple universities",
+      "logisim-evolution"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "Qucs-S",
+    "vendors": [
+      "ra3xdh",
+      "various contributors"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "Qucs-S",
+    "vendors": [
+      "ra3xdh",
+      "various contributors"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "Qucs-S",
+    "vendors": [
+      "Michael Margraf, Stefan Jahn et al.",
+      "ra3xdh"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "Qucs-S",
+    "vendors": [
+      "Michael Margraf, Stefan Jahn et al.",
+      "ra3xdh"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "fault",
+    "vendors": [
+      "AUCOHL",
+      "leonardt"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "fault",
+    "vendors": [
+      "AUCOHL",
+      "leonardt"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "pcbflow",
+    "vendors": [
+      "NijoP",
+      "michaelgale"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "OpenSTA",
+    "vendors": [
+      "The-OpenROAD-Project",
+      "parallaxsw"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "pyspice",
+    "vendors": [
+      "PySpice-org",
+      "rvanmelle"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "PySpice",
+    "vendors": [
+      "PySpice-org",
+      "rvanmelle"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "polyphony",
+    "vendors": [
+      "Kenji-Ishimaru",
+      "polyphony-dev"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "polyphony",
+    "vendors": [
+      "Kenji-Ishimaru",
+      "polyphony-dev"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "eda_tools",
+    "vendors": [
+      "Rafa350",
+      "vmunoz82"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "EdaTools",
+    "vendors": [
+      "Rafa350",
+      "vmunoz82"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "vna",
+    "vendors": [
+      "loxodes",
+      "xaxaxa-dev"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "vna",
+    "vendors": [
+      "loxodes",
+      "xaxaxa-dev"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "circuit-simulator",
+    "vendors": [
+      "abdulrhman-dev",
+      "circuitsim"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "circuit-simulator",
+    "vendors": [
+      "circuitsim",
+      "seckwei"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "circuit-simulator",
+    "vendors": [
+      "circuitsim",
+      "xiaoboost"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "circuit-simulator",
+    "vendors": [
+      "abdulrhman-dev",
+      "circuitsim"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "circuit-simulator",
+    "vendors": [
+      "abdulrhman-dev",
+      "seckwei"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "circuit-simulator",
+    "vendors": [
+      "abdulrhman-dev",
+      "xiaoboost"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "circuit-simulator",
+    "vendors": [
+      "circuitsim",
+      "seckwei"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "circuit-simulator",
+    "vendors": [
+      "circuitsim",
+      "xiaoboost"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "Circuit-Simulator",
+    "vendors": [
+      "seckwei",
+      "xiaoboost"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "uvmBasics",
+    "vendors": [
+      "adibis",
+      "amamory-verification"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "altium-cli",
+    "vendors": [
+      "akiselev",
+      "tscircuit"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "kicad-auto-silkscreen",
+    "vendors": [
+      "CGrassin",
+      "snhobbs"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "async_FIFO",
+    "vendors": [
+      "dadongshangu",
+      "dpretet"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "gerber-parser",
+    "vendors": [
+      "MakerPnP",
+      "hsiang-lee"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "100-days-of-RTL",
+    "vendors": [
+      "ItzzInfinity",
+      "snbk001"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "AXI",
+    "vendors": [
+      "kumarrishav14",
+      "pulp-platform"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "hack-computer",
+    "vendors": [
+      "kurtjd",
+      "maxdemaio"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "hack-computer",
+    "vendors": [
+      "VishalSharma0309",
+      "kurtjd"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "hack-computer",
+    "vendors": [
+      "VishalSharma0309",
+      "maxdemaio"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "uvm",
+    "vendors": [
+      "PacoReinaCampo",
+      "maximecb"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "PyLTSpice",
+    "vendors": [
+      "nunobrum",
+      "thennen"
+    ]
+  },
+  {
+    "type": "same_name_different_vendor",
+    "name": "qeda",
+    "vendors": [
+      "Spooky-Manufacturing",
+      "qeda"
+    ]
+  },
+  {
     "type": "field_conflict",
     "tool": "SapWin",
     "field": "license_model",
@@ -8,5 +344,69 @@
       "open-source"
     ],
     "chosen": "open-source"
+  },
+  {
+    "type": "shared_website_path",
+    "url_key": "autodesk.com/products/eagle",
+    "tool_ids": [
+      "eagle",
+      "toprouter"
+    ]
+  },
+  {
+    "type": "shared_website_path",
+    "url_key": "avlsi.csl.yale.edu/act",
+    "tool_ids": [
+      "act",
+      "actflow"
+    ]
+  },
+  {
+    "type": "shared_website_path",
+    "url_key": "f4pga.github.io/prjxray-db",
+    "tool_ids": [
+      "prjxray",
+      "prjxray-db"
+    ]
+  },
+  {
+    "type": "shared_website_path",
+    "url_key": "gnu.org/software/gnucap/gnucap.html",
+    "tool_ids": [
+      "gnu-circuit-analysis-package",
+      "gnucap"
+    ]
+  },
+  {
+    "type": "shared_website_path",
+    "url_key": "ma-laforge.github.io/info/edatools",
+    "tool_ids": [
+      "libpsf-jl",
+      "spicedata-jl"
+    ]
+  },
+  {
+    "type": "shared_website_path",
+    "url_key": "vlsisystemdesign.com/vsd-ip-specs",
+    "tool_ids": [
+      "vsdflow",
+      "vsdsram"
+    ]
+  },
+  {
+    "type": "shared_website_path",
+    "url_key": "xilinx-wiki.atlassian.net/wiki/spaces/a/pages/862421112/co-simulation",
+    "tool_ids": [
+      "libsystemctlm-soc",
+      "systemctlm-cosim-demo"
+    ]
+  },
+  {
+    "type": "shared_website_path",
+    "url_key": "youtube.com/playlist",
+    "tool_ids": [
+      "eboard-can-analyzer",
+      "eboard-usbtottl"
+    ]
   }
 ]

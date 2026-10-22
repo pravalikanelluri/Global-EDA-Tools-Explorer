@@ -1,0 +1,13 @@
+[
+  {"tool_name": "example-sim", "vendor_maintainer": "example-org", "category": "simulation",
+   "license": "MIT", "license_model": "open-source", "repository_url": "https://github.com/example-org/example-sim",
+   "country_region": "Germany",
+   "source_url": "https://api.github.com/repos/example-org/example-sim", "source_type": "github_topics",
+   "date_collected": "2026-01-01", "fetch_status": 200},
+  {"tool_name": "example-router", "vendor_maintainer": "example-lab", "category": "place-and-route",
+   "additional_categories": "timing-signoff", "license": "Apache-2.0", "license_model": "open-source",
+   "repository_url": "https://github.com/example-lab/example-router", "country_region": "Japan",
+   "latest_version": "v0.3.1", "latest_release_date": "2025-06-30", "latest_release_year": "2025",
+   "source_url": "https://api.github.com/repos/example-lab/example-router", "source_type": "github_topics",
+   "date_collected": "2026-01-01", "fetch_status": 200}
+]

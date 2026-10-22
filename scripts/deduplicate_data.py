@@ -14,31 +14,45 @@ sent to manual review instead of merged:
 Field values are chosen by per-field source priority (FIELD_PRIORITY). The release triple
 (latest_version, latest_release_date, latest_release_year) is taken together from ONE record: the one
 reporting the most recent release, so a version is never paired with another source's date.
-Outputs: eda_tools_clean.csv, provenance.csv, review_queue.json, dedup_stats.json in data/processed/.
+Two derived columns/rules are added after merging, both written to be auditable:
+  - vendor_canonical: one spelling per vendor ('Cadence' = 'Cadence Design Systems'); vendor_maintainer keeps the
+    source's wording.
+  - PCB rule: a tool whose primary category is pcb-design drops IC-only secondary categories (layout/physical
+    verification, place-and-route, timing sign-off) whose keywords also have a board-level meaning. Every drop is
+    listed in category_adjustments.json.
+Outputs: eda_tools_clean.csv, provenance.csv, review_queue.json, dedup_stats.json, category_adjustments.json
+in data/processed/.
 """
 import csv
 import re
-from collections import defaultdict
+from collections import Counter, defaultdict
 from urllib.parse import urlparse
 
-from common import (CATEGORIES, FINAL_FIELDS, META, PROCESSED, clean_text, ensure_dirs, github_repo_key, join_multi,
-                    name_key, read_json, region_of, slug, split_multi, wiki_key, write_json)
+from common import (CATEGORIES, FINAL_FIELDS, META, PCB_NOT_IC_STAGES, PROCESSED, clean_text, ensure_dirs,
+                    github_repo_key, join_multi, name_key, read_json, region_of, slug, split_multi, wiki_key,
+                    write_json)
 
-SOURCE_RANK = ["published_list", "wikipedia_article", "vendor_site", "public_repository", "documentation",
-               "vendor_origin"]
+SOURCE_RANK = ["published_list", "wikipedia_article", "vendor_site", "curated_list", "public_repository",
+               "repository_search", "github_topics", "documentation", "vendor_origin"]
 FIELD_PRIORITY = {
-    "tool_name": ["wikipedia_article", "published_list", "vendor_site", "public_repository", "documentation"],
-    "vendor_maintainer": ["vendor_site", "published_list", "wikipedia_article", "public_repository"],
-    "country_region": ["vendor_origin"],
-    "category": ["published_list", "vendor_site", "wikipedia_article", "public_repository", "documentation"],
-    "license_model": ["wikipedia_article", "published_list", "public_repository", "vendor_site"],
-    "license": ["public_repository", "wikipedia_article", "published_list"],
-    "website_url": ["vendor_site", "wikipedia_article", "published_list", "public_repository"],
-    "repository_url": ["public_repository", "wikipedia_article", "published_list", "documentation"],
+    "tool_name": ["wikipedia_article", "published_list", "vendor_site", "curated_list", "public_repository",
+                  "repository_search", "github_topics", "documentation"],
+    "vendor_maintainer": ["vendor_site", "published_list", "wikipedia_article", "public_repository",
+                          "repository_search", "github_topics"],
+    "country_region": ["vendor_origin", "github_topics"],  # github_topics: the owner's self-reported location
+    "category": ["published_list", "vendor_site", "wikipedia_article", "curated_list", "public_repository",
+                 "repository_search", "github_topics", "documentation"],
+    "license_model": ["wikipedia_article", "published_list", "public_repository", "repository_search", "vendor_site",
+                      "github_topics", "curated_list"],
+    "license": ["public_repository", "repository_search", "wikipedia_article", "published_list", "github_topics"],
+    "website_url": ["vendor_site", "wikipedia_article", "published_list", "public_repository", "repository_search",
+                    "github_topics", "curated_list"],
+    "repository_url": ["public_repository", "repository_search", "wikipedia_article", "published_list",
+                       "curated_list", "documentation", "github_topics"],
     "wikipedia_url": ["wikipedia_article", "published_list"],
     "first_release_year": ["wikipedia_article"],
 }
-RELEASE_PRIORITY = ["public_repository", "wikipedia_article", "published_list"]
+RELEASE_PRIORITY = ["public_repository", "github_topics", "wikipedia_article", "published_list"]
 VENDOR_PREFIXES = ("synopsys", "cadence", "siemens", "mentor", "keysight", "zuken", "lattice", "intel", "amd",
                    "xilinx", "efinix", "gowin", "empyrean", "primarius", "silvaco", "defacto", "ansys", "altium")
 CONFLICT_FIELDS = ("license_model", "first_release_year")
@@ -61,6 +75,35 @@ def vendor_key(v):
 def vendor_parts(v):
     """Vendor name parts: parenthetical notes dropped, split on '/', legal suffixes removed."""
     return [k for k in (vendor_key(p) for p in re.split(r"[/;]", re.sub(r"\(.*?\)", " ", clean_text(v)))) if k]
+
+
+def canonical_vendors(vendors):
+    """Map every vendor string to one display name.
+
+    Spellings that share the dedup's normalised vendor key ('Cadence', 'Cadence Design Systems') get the most
+    frequent spelling (ties: shortest, then alphabetical); parenthetical notes are ignored
+    ('Altium (included in Altium Develop and Altium Agile)' -> 'Altium'). vendor_maintainer keeps the
+    wording of the source; vendor_canonical is only for counting and grouping. Returns a function.
+    """
+    forms = defaultdict(Counter)
+    for v in vendors:
+        base = clean_text(re.sub(r"\(.*?\)", "", v or ""))
+        if vendor_key(base):
+            forms[vendor_key(base)][base] += 1
+    best = {k: sorted(c, key=lambda n: (-c[n], len(n), n))[0] for k, c in forms.items()}
+
+    def lookup(v):
+        return best.get(vendor_key(clean_text(re.sub(r"\(.*?\)", "", v or ""))), "")
+    return lookup
+
+
+def apply_pcb_rule(category, additional):
+    """For a PCB-primary tool, drop IC-only stages from the secondary categories (see common.PCB_NOT_IC_STAGES).
+    Returns (new additional_categories string, list of dropped categories)."""
+    if category != "pcb-design":
+        return additional, []
+    items = split_multi(additional)
+    return join_multi(c for c in items if c not in PCB_NOT_IC_STAGES), sorted(c for c in items if c in PCB_NOT_IC_STAGES)
 
 
 def load_decisions():
@@ -153,7 +196,7 @@ def main():
     for i in range(n):
         groups[uf.find(i)].append(recs[i])
 
-    pairs, orphans = [], []
+    pairs, orphans, adjustments = [], [], []
     for g in groups.values():
         if all(r["source_type"] == "vendor_origin" for r in g):
             # only the vendor's company page mentions this tool (e.g. its product page returned 403):
@@ -172,6 +215,10 @@ def main():
         all_cats = [r["category"] for r in g if r["category"]] + \
                    [c for r in g for c in split_multi(r["additional_categories"])]
         row["additional_categories"] = join_multi(c for c in all_cats if c in CATEGORIES and c != row["category"])
+        row["additional_categories"], dropped = apply_pcb_rule(row["category"], row["additional_categories"])
+        if dropped:
+            adjustments.append({"tool": row["tool_name"], "rule": "pcb_primary_drops_ic_stages",
+                                "dropped_additional_categories": dropped})
         # release triple from ONE record: the most recent release reported by any source
         rel = [r for r in g if (r["latest_version"] or r["latest_release_year"]) and r["source_type"] in RELEASE_PRIORITY]
         rel.sort(key=lambda r: (r["latest_release_date"] or r["latest_release_year"] or "0000",
@@ -227,13 +274,19 @@ def main():
         if len(tids) > 1:
             review.append({"type": "shared_website_path", "url_key": k, "tool_ids": tids})
 
+    cmap = canonical_vendors([r["vendor_maintainer"] for r in rows])
+    for r in rows:
+        r["vendor_canonical"] = cmap(r["vendor_maintainer"])
+    adjustments.sort(key=lambda a: a["tool"])
+    write_json(PROCESSED / "category_adjustments.json", adjustments)
+
     with open(PROCESSED / "eda_tools_clean.csv", "w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=FINAL_FIELDS)
+        w = csv.DictWriter(f, fieldnames=FINAL_FIELDS, lineterminator="\n")
         w.writeheader()
         w.writerows(rows)
     with open(PROCESSED / "provenance.csv", "w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=["tool_id", "source_type", "source_url", "date_collected", "fetch_status",
-                                          "fields_reported"])
+                                          "fields_reported"], lineterminator="\n")
         w.writeheader()
         w.writerows(sorted(prov, key=lambda p: (p["tool_id"], p["source_type"], p["source_url"])))
     write_json(PROCESSED / "review_queue.json", review)
@@ -245,7 +298,8 @@ def main():
     write_json(PROCESSED / "dedup_stats.json", {"source_records": n, "canonical_tools": len(rows),
                                                  "duplicates_merged": dups,
                                                  "multi_source_tools": sum(1 for _, g in pairs if len(g) > 1),
-                                                 "review_items": len(review)})
+                                                 "review_items": len(review),
+                                                 "pcb_category_adjustments": len(adjustments)})
     print("dedup: %d source records -> %d tools (%d duplicates merged, %d review items)"
           % (n, len(rows), dups, len(review)))
 

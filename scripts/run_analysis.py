@@ -9,10 +9,7 @@ import csv
 import json
 from collections import Counter
 
-import re
-
-from common import CATEGORIES, OUT, PROCESSED, clean_text, drop_user_site, ensure_dirs, read_json, split_multi
-from deduplicate_data import vendor_key
+from common import CATEGORIES, OUT, PROCESSED, drop_user_site, ensure_dirs, read_json, split_multi
 
 drop_user_site()
 import numpy as np  # noqa: E402  (Crucible tool)
@@ -42,7 +39,7 @@ plt.rcParams.update({
 
 def write_table(name, header, rows):
     with open(OUT / name, "w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")  # LF on every OS: identical bytes on Windows and Linux
         w.writerow(header)
         w.writerows(rows)
 
@@ -90,15 +87,14 @@ def main():
     plat_model = {m: Counter(p for r in rows if model_of(r) == m for p in split_multi(r["supported_platforms"]))
                   for m in MODELS}
     langs = Counter(x for r in rows for x in split_multi(r["languages_formats"]))
-    # vendors grouped by the dedup's normalised key ('Cadence' = 'Cadence Design Systems'), shown by the shortest name
-    vkey, vname = Counter(), {}
-    for r in rows:
-        name = clean_text(re.sub(r"\(.*?\)", "", r["vendor_maintainer"]))
-        k = vendor_key(name)
-        if k:
-            vkey[k] += 1
-            vname[k] = min(vname.get(k, name), name, key=len)
-    vendors = Counter({vname[k]: n for k, n in vkey.items()})
+    # vendors grouped by the dedup's canonical spelling ('Cadence' = 'Cadence Design Systems')
+    vendors = Counter(r["vendor_canonical"] for r in rows if r["vendor_canonical"])
+    top3_share = 100.0 * sum(n for _, n in vendors.most_common(3)) / max(sum(vendors.values()), 1)
+    # how well is the vendor country known, per licence model? (shows how much of the regional picture is a
+    # measurement effect: companies have Wikipedia headquarters fields, community projects mostly do not)
+    cov = {m: (sum(1 for r in rows if model_of(r) == m),
+               sum(1 for r in rows if model_of(r) == m and r["country_region"])) for m in MODELS}
+    cov_pct = {m: (100.0 * k / n if n else 0.0) for m, (n, k) in cov.items()}
     filled = {f: round(100.0 * sum(1 for r in rows if r[f]) / total, 1) for f in COMPLETENESS_FIELDS}
     region_model = {g: Counter(model_of(r) for r in rows if r["region"] == g) for g in REGIONS}
 
@@ -118,7 +114,9 @@ def main():
     write_table("platform_support.csv", ["platform", "tools"] + MODELS,
                 [(p, n) + tuple(plat_model[m].get(p, 0) for m in MODELS) for p, n in plat.most_common()])
     write_table("languages_formats.csv", ["language_or_format", "tools"], langs.most_common())
-    write_table("top_vendors.csv", ["vendor_maintainer", "tools"], vendors.most_common(25))
+    write_table("top_vendors.csv", ["vendor_canonical", "tools"], vendors.most_common(25))
+    write_table("country_coverage_by_model.csv", ["license_model", "tools", "with_country", "percent_with_country"],
+                [(m, cov[m][0], cov[m][1], round(cov_pct[m], 1)) for m in MODELS])
 
     # ---- 1. tools per category, split by licence model (stacked, flow order) -------------------
     labels = CATEGORIES + ["unknown"]
@@ -228,11 +226,22 @@ def main():
         ax.set_title(title)
         save(fig, name)
 
+    # ---- 9. how well is the vendor country known, by licence model (a bias check on plot 3) -------------
+    shown = [m for m in MODELS if cov[m][0]]
+    fig, ax = plt.subplots(figsize=(7.5, 3.2))
+    hbar(ax, ["%s (%d tools)" % (m, cov[m][0]) for m in shown], [cov_pct[m] for m in shown], fmt="%.0f%%")
+    ax.set_xlim(0, 112)
+    ax.set_xlabel("% of tools whose vendor country is documented")
+    ax.set_title("Country coverage by licence model")
+    save(fig, "country_coverage.png")
+
     # ---- summary + auto-generated findings ------------------------------------------------------
     stats = read_json(PROCESSED / "dedup_stats.json", {})
     summary = {"snapshot_date": date, "total_tools": total, "by_category_primary": dict(cat_primary),
                "by_category_any": dict(cat_any), "by_license_model": dict(lic), "by_region": dict(region),
                "by_country": dict(country), "percent_filled": filled, "dedup": stats,
+               "country_coverage_percent_by_model": {m: round(cov_pct[m], 1) for m in MODELS},
+               "top3_vendor_share_percent": round(top3_share, 1),
                "numpy": np.__version__, "matplotlib": matplotlib.__version__}
     with open(OUT / "summary.json", "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2, sort_keys=True)
@@ -255,6 +264,12 @@ def main():
            sum(1 for c in CATEGORIES if cat_any.get(c)), len(CATEGORIES)),
         "- Regions with documented vendor origin: " + ", ".join("%s %d" % (g, region[g]) for g in REGIONS if region.get(g)),
         "- Most represented country: **%s**" % top1(country),
+        "- Vendor country is documented for: %s. The regional picture is therefore mostly a picture of commercial "
+        "vendors (see `country_coverage.png`)"
+        % "; ".join("%.0f%% of %s tools (%d of %d)" % (cov_pct[m], m, cov[m][1], cov[m][0])
+                    for m in MODELS if cov[m][0]),
+        "- Vendor concentration: the top 3 vendors account for **%.0f%%** of the tools that name a vendor"
+        % top3_share,
         "- Tools with a release in the last 3 years (%d-%s): %d of %d with a documented release"
         % (int(date[:4]) - 2, date[:4], recent, sum(latest_year.values())),
         "- Earliest documented first release: %s" % (min(first_year) if first_year else "n/a"),

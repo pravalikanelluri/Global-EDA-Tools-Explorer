@@ -1,26 +1,26 @@
-vendor_maintainer,tools
-Cadence,15
+vendor_canonical,tools
+chipsalliance,17
+Cadence,16
 Synopsys,9
+Nic30,8
+Xilinx,8
+cornell-zhang,6
+spcl,6
+scale-lab,5
+kumarrishav14,5
+sgherbst,5
+nelsoncsc,5
+SystemRDL,5
+intel,5
 Siemens,5
-Zuken,3
-YosysHQ,3
-Autodesk,2
-Altium,2
-Tachyon Design Automation,2
-Xilinx,2
-Silvaco,2
-chipsalliance,2
-Aldec,1
-Keysight EEsof EDA,1
-"Huada Empyrean Software Co., Ltd",1
-ferrandi,1
-VMware Research,1
-Logic Design,1
-cocotb,1
-RS Components,1
-Novarm,1
-Autodesk / CadSoft Computer,1
-"JiaLiChuang Co., Limited",1
-"Efinix, Inc.",1
-"Empyrean Technology Co., Ltd",1
-Edwin Naroska,1
+asyncvlsi,4
+esynr3z,4
+pulp-platform,4
+vmunoz82,4
+olofk,4
+zhajio1988,4
+mattvenn,4
+tmeissner,4
+gdsfactory,4
+snhobbs,4
+YosysHQ,4

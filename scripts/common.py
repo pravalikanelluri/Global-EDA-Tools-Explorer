@@ -33,7 +33,7 @@ RAW_FIELDS = [
     "fetch_status", "vendor_wikipedia_url",
 ]
 FINAL_FIELDS = [
-    "tool_id", "tool_name", "vendor_maintainer", "country_region", "region", "category",
+    "tool_id", "tool_name", "vendor_maintainer", "vendor_canonical", "country_region", "region", "category",
     "additional_categories", "license_model", "license", "website_url", "repository_url",
     "wikipedia_url", "first_release_year", "latest_version", "latest_release_date",
     "latest_release_year", "supported_platforms", "languages_formats", "source_url", "source_types", "date_collected",
@@ -43,7 +43,7 @@ MULTI_FIELDS = ["additional_categories", "supported_platforms", "languages_forma
 
 # Controlled category vocabulary, ordered along the design flow (front end -> sign-off -> board).
 CATEGORIES = [
-    "high-level-synthesis", "synthesis", "simulation", "verification", "place-and-route",
+    "hdl-design-entry", "high-level-synthesis", "synthesis", "simulation", "verification", "place-and-route",
     "timing-signoff", "layout-physical-verification", "analog-mixed-signal", "pcb-design",
     "fpga-toolchain",
 ]
@@ -64,7 +64,18 @@ CATEGORY_RULES = [
     (r"\bhdl\b|logic simulat|verilog simulat|vhdl simulat|simulat", "simulation"),
     (r"\bsynthesis\b|\bsynthesi[sz]er\b", "synthesis"),
     (r"\bpcb\b|printed circuit|circuit board", "pcb-design"),  # 'schematic' alone is also analog/IC vocabulary
+    # front-end design entry: hardware languages, HDL generators/parsers, flow build systems. Last in rule order,
+    # so for headings it only becomes primary when no flow-stage keyword matched
+    (r"hardware (description|construction|design|generation) language|\bhcl\b|embedded in (python|scala|haskell)|"
+     r"transpil|\bparsers?\b|elaborat|build system|dependency manag|register (map|generator|description|code)|"
+     r"code generator|hdl generat|hardware generat|\bdsl\b|language server", "hdl-design-entry"),
 ]
+
+
+# Stages whose keywords also have a board-level meaning ('layout', 'routing', 'timing analysis' / signal
+# integrity). A tool whose PRIMARY category is pcb-design does not get these IC stages as secondary categories:
+# PCB routing is not IC place-and-route. Applied (and logged) in deduplicate_data.apply_pcb_rule.
+PCB_NOT_IC_STAGES = {"place-and-route", "timing-signoff", "layout-physical-verification"}
 
 
 def categorize(*texts, by_position=False):
