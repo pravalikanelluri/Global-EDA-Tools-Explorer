@@ -55,7 +55,7 @@ function count(key, label, top) {
   return top ? a.slice(0, top) : a;
 }
 $('snap').textContent = D.length ? D[0].date_collected : '';
-$('built').textContent = new Date().toISOString ? '2026-10-23 00:37' : '';
+$('built').textContent = new Date().toISOString ? '2026-10-27 17:44' : '';
 // headline
 const n = D.length, os = D.filter(r => r.license_model === 'open-source').length, co = D.filter(r => r.license_model === 'commercial').length, mu = D.filter(r => +r.source_count >= 2).length;
 [['Tools', n, 'One row per tool, duplicates merged'], ['Open source', os, pf(os / n) + ' of all tools'], ['Commercial', co, pf(co / n) + ' of all tools'], ['Listed by 2+ sources', mu, pf(mu / n) + ' of all tools']].forEach(([k, v, s]) => {
